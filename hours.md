@@ -7,5 +7,6 @@
 ### Part1
 
 exercises 1-5: 1
+exercises 6-11: 1
 
 ### Part2
