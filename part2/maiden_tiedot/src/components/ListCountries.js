@@ -1,9 +1,10 @@
 import React from "react"
 
-const CountryName = ({ country }) => {
+const CountryName = ({ country, info}) => {
   return (
     <div>
-      {country.name.common}
+        {country.name.common}
+        <button onClick={() => info(country)}>show</button>
     </div>
   )
 }
@@ -63,7 +64,7 @@ const ListCountries = (props) => {
     return (
       <div>
         {countries.map(country => 
-          <CountryName key={country.name.common} country={country} />
+          <CountryName key={country.name.common} country={country} info={props.info} />
         )}
       </div>
     )
