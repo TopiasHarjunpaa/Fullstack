@@ -4,11 +4,12 @@ import Filter from './components/Filter'
 import ListCountries from './components/ListCountries'
 import CountryInfo from './components/CountryInfo'
 
-const App = () => {
+const App = () => { 
   const [countries, setCountries] = useState([])
   const [filter, setNewFilter] = useState('')
-  const [country, setCountry] = useState([])
+  const [country, setCountry] = useState({ capital: 'Helsinki' })
   const [infoStatus, setInfoStatus] = useState(false)
+  const [weather, setWeather] = useState([])
 
   useEffect(() => {
     axios
@@ -17,6 +18,17 @@ const App = () => {
         setCountries(response.data)
       })
   }, [])
+
+  useEffect(() => {
+    const api_key = process.env.REACT_APP_API_KEY
+    const city = country.capital
+    console.log(city)
+    axios
+      .get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${city}`)
+      .then(response => {
+        setWeather(response.data)
+      })
+  },[country])
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
@@ -30,14 +42,14 @@ const App = () => {
     return (
       <div>
         <button onClick={() => setInfoStatus(false)}>back</button>
-        <CountryInfo country={country}/>
+        <CountryInfo country={country} weather={weather}/>
       </div>
     )
   } else {
     return (
       <div>
         <Filter handleFilterChange={handleFilterChange}/>
-        <ListCountries countries={countries} filter={filter} info={changeCountry}/>
+        <ListCountries countries={countries} filter={filter} info={changeCountry} weather={weather}/>
       </div>
     )
   }
