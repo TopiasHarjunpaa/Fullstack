@@ -1,9 +1,13 @@
 import React from "react"
 
-const Person = ({ name, number }) => {
+const Person = ({ person, deletePerson }) => {
   return (
     <div>
-      <p>{name}: {number}</p>
+      <p>
+        {person.name}: 
+        {person.number}
+        <button onClick={() => deletePerson(person.id)}>delete</button>
+      </p>
     </div>
   )
 }
@@ -16,14 +20,14 @@ const FilterPersons = ( persons, filter) => {
   )
 }
 
-const Persons = ({ persons, filter }) => {
+const Persons = ({ persons, filter, deletePerson }) => {
   return (
     <div>
       {FilterPersons(persons, filter).map(person =>
         <Person 
           key={person.id}
-          name={person.name}
-          number={person.number}
+          person={person}
+          deletePerson={deletePerson}
         />
       )}
     </div>
