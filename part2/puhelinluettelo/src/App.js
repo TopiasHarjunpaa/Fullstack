@@ -3,12 +3,16 @@ import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import personService from './services/persons'
+import Success from './components/Success'
+import Error from './components/Error'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setNewFilter] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -31,11 +35,21 @@ const App = () => {
           .updateNumber(person.id, updatedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : updatedPerson))
+            setSuccessMessage(
+              `Old number replaced for ${newName}`
+            )
           })
+          .catch(error => {
+            setErrorMessage(
+              `${newName} has already removed from the server`
+            )
+          })
+        
+
+
       }
 
     } else {
-      console.log('clicked')
       const personObject = {
         name: newName,
         number: newNumber
@@ -46,8 +60,17 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
         })
-
+      
+      setSuccessMessage(
+        `Added ${newName}`
+      )
     }
+
+    setTimeout(() => {
+      setSuccessMessage(null)
+      setErrorMessage(null)
+    }, 2000)
+
     setNewName('')
     setNewNumber('')
   }
@@ -57,6 +80,13 @@ const App = () => {
     if (window.confirm(`Delete ${name} ?`)) {
       personService.del(id)
       setPersons(persons.filter(person => person.id !== id))
+
+      setSuccessMessage(
+        `${name} deleted`
+      )
+      setTimeout(() => {
+        setSuccessMessage(null)
+      }, 2000)
     }
   }
 
@@ -75,6 +105,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Success message={successMessage}/>
+      <Error message={errorMessage}/>
       <Filter handleFilterChange={handleFilterChange}/>
       <h3>Add a new</h3>
       <PersonForm 
