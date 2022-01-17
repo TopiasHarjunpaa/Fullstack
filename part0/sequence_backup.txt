@@ -1,0 +1,101 @@
+title Tehtävä 0.4
+
+note over selain:
+selain lähettää datan palvelimelle
+end note
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over palvelin:
+palvelin tekee uudelleenohjauspyynnön
+end note
+palvelin-->selain: redirect to /exampleapp/notes
+note over selain:
+selain lataa sivun /example/notes
+(tämän jälkeen sama, kuin esimerkissä...)
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: main.js
+note over selain:
+selain alkaa suorittaa js-koodia
+joka pyytää JSON-datan palvelimelta
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{"content":"abdcew","date":"2022-01-17T15:24:25.368Z"}, ...]
+note over selain:
+selain suorittaa tapahtumankäsittelijän
+joka renderöi muistiinpanot näytölle
+end note
+
+title Tehtävä 0.5
+
+note over selain:
+selain tekee GET -pyynnön palvelimelle
+ja hakee HTML-koodin
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: HTML-koodi
+note over selain:
+HTML-koodi saa aikaan
+tyylitiedoston main.css hakemisen
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+note over selain:
+HTML-koodi saa aikaan
+JS-koodin spa.js hakemisen
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin-->selain: spa.js
+note over selain:
+selain alkaa suorittaa js-koodia
+joka pyytää JSON-datan palvelimelta
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{"content":"TSEMPPIÄ KURSSILLE!!! :) <33","date":"2022-01-17T16:13:56.555Z"}, ...]
+note over selain:
+selain suorittaa tapahtumankäsittelijän
+joka renderöi muistiinpanot näytölle
+end note
+
+title Tehtävä 0.6
+
+note over selain:
+selain lähettää datan palvelimelle
+end note
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over palvelin:
+palvelin tekee uudelleenohjauspyynnön
+end note
+palvelin-->selain: redirect to /exampleapp/notes
+note over selain:
+selain tekee GET -pyynnön palvelimelle
+ja hakee HTML-koodin
+(tämän jälkeen sama, kuin tehtävässä 0.5...)
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: HTML-koodi
+note over selain:
+HTML-koodi saa aikaan
+tyylitiedoston main.css hakemisen
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+note over selain:
+HTML-koodi saa aikaan
+JS-koodin spa.js hakemisen
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin-->selain: spa.js
+note over selain:
+selain alkaa suorittaa js-koodia
+joka pyytää JSON-datan palvelimelta
+end note
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{"content":"TSEMPPIÄ KURSSILLE!!! :) <33","date":"2022-01-17T16:13:56.555Z"}, ...]
+note over selain:
+selain suorittaa tapahtumankäsittelijän
+joka renderöi muistiinpanot näytölle
+end note

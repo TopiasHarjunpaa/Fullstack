@@ -5,8 +5,8 @@
 #### Part 0
 | Exercises | Progress | Hours |
 | :----:|:----:|:----:|
-| 1-6 | 0/6 | 0 h |
-| Total | 0/6 |0 h
+| 1-6 | 6/6 | 1 h |
+| Total | 6/6 |1 h
 
 #### Part 1
 | Exercises | Progress | Hours |
