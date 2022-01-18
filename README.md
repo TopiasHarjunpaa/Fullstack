@@ -1,6 +1,6 @@
 # Fullstack course 2020
 
-### Hours spent for the exercises
+### Hours
 
 #### Part 0
 | Exercises | Progress | Hours |
