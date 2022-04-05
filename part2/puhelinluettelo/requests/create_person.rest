@@ -1,0 +1,7 @@
+POST https://fs-part3-backend.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "number": "123-12345"
+}
