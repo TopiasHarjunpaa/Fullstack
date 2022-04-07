@@ -26,7 +26,7 @@ const App = () => {
     event.preventDefault()
     const personNames = persons.map(person => person.name)
     
-    if (personNames.includes(newName)) {
+    if (personNames.includes(newName) && newNumber !== "") {
       const message = `${newName} is already added to phonebook, replace the old number with new one?`
       if (window.confirm(message)) {
         const person = persons.find(person => person.name === newName)
@@ -44,26 +44,29 @@ const App = () => {
               `${newName} has already removed from the server`
             )
           })
-        
-
-
       }
 
     } else {
-      const personObject = {
-        name: newName,
-        number: newNumber
+      if (newName === "") {
+        setErrorMessage('Name is missing')        
+      } else if (newNumber === "") {
+        setErrorMessage('Number is missing')
+      } else {
+        const personObject = {
+          name: newName,
+          number: newNumber
+        }
+  
+        personService
+          .create(personObject)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+          })
+        
+        setSuccessMessage(
+          `Added ${newName}`
+        )
       }
-
-      personService
-        .create(personObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-        })
-      
-      setSuccessMessage(
-        `Added ${newName}`
-      )
     }
 
     setTimeout(() => {
