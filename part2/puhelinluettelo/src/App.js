@@ -40,9 +40,8 @@ const App = () => {
             )
           })
           .catch(error => {
-            setErrorMessage(
-              `${newName} has already removed from the server`
-            )
+            console.log(error.response.data)
+            setErrorMessage(error.response.data.error)
           })
       }
     } else {
