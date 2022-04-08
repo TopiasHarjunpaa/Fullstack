@@ -45,30 +45,23 @@ const App = () => {
             )
           })
       }
-
     } else {
-      if (newName === "") {
-        setErrorMessage('Name is missing')        
-      } else if (newNumber === "") {
-        setErrorMessage('Number is missing')
-      } else {
-        const personObject = {
-          name: newName,
-          number: newNumber
-        }
-  
-        personService
-          .create(personObject)
-          .then(returnedPerson => {
-            setPersons(persons.concat(returnedPerson))
-          })
-        
-        setSuccessMessage(
-          `Added ${newName}`
-        )
+      const personObject = {
+        name: newName,
+        number: newNumber
       }
-    }
 
+      personService
+        .create(personObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setSuccessMessage(`Added ${newName}`)
+        })
+        .catch(error => {
+          console.log(error.response.data)
+          setErrorMessage(error.response.data.error)          
+        })
+    }
     setTimeout(() => {
       setSuccessMessage(null)
       setErrorMessage(null)
