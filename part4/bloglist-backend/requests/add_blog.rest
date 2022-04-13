@@ -4,6 +4,6 @@ Content-Type: application/json
 {
   "title": "Great blog",
   "author": "Blogger",
-  "url": "www.blogger-blogs.com",
+  "url": "www.blogger-blogs/p2.com",
   "likes": 0
 }
