@@ -13,7 +13,7 @@ describe('most blogs', () => {
     const listWithOneBlog = [blogs[0]]
     const result = listHelper.mostBlogs(listWithOneBlog)
     const expected = {
-      author: "Michael Chan",
+      author: 'Michael Chan',
       blogs: 1
     }
     expect(result).toEqual(expected)
@@ -22,7 +22,7 @@ describe('most blogs', () => {
   test('founds author with most blogs in a bigger list', () => {
     const result = listHelper.mostBlogs(blogs)
     const expected = {
-      author: "Robert C. Martin",
+      author: 'Robert C. Martin',
       blogs: 3
     }
     expect(result).toEqual(expected)

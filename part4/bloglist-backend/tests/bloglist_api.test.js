@@ -29,6 +29,27 @@ test('blogs should have indentifying field named as id', async () => {
   expect(ids).toBeDefined()
 })
 
+test('new blog can be added with correct title', async () => {
+  const newBlog = {
+    title: 'For testing',
+    author: 'Tester',
+    url: 'test.com',
+    likes: 1
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  const titles = blogsAtEnd.map(b => b.title)
+  expect(blogsAtEnd).toHaveLength(helper.Initialblogs.length + 1)
+  expect(titles).toContainEqual('For testing')
+
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
