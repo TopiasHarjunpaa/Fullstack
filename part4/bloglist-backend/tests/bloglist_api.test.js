@@ -6,11 +6,23 @@ const api = supertest(app)
 const bcrypt = require('bcrypt')
 const Blog = require('../models/blog')
 const User = require('../models/user')
+let token = ''
+let userId = ''
 
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(helper.Initialblogs)
+  await User.deleteMany({})
+  const passwordHash = await bcrypt.hash('testpw', 10)
+  const user = new User({ username: 'testuser', passwordHash })
+  await user.save()
+  const result = await api
+    .post('/api/login')
+    .send({ username: 'testuser', password: 'testpw' })
+  token = 'bearer ' + result.body.token.toString()
+  userId = result.body.token.id
 })
+
 describe('when there is initially blogs saved', () => {
   test('blogs are returned as json', async () => {
     await api
@@ -43,6 +55,7 @@ describe('addition of new blog', () => {
 
     await api
       .post('/api/blogs')
+      .set('Authorization', token)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -56,6 +69,23 @@ describe('addition of new blog', () => {
 
   })
 
+  test('new blog can not be added without token and returns correct statuscode', async () => {
+    const newBlog = {
+      title: 'For testing',
+      author: 'Tester',
+      url: 'test.com',
+      likes: 5
+    }
+
+    const result = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(401)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('invalid token')
+
+  })
   test('blog without likes input gets value of 0', async () => {
     const newBlog = {
       title: 'Without likes',
@@ -65,6 +95,7 @@ describe('addition of new blog', () => {
 
     await api
       .post('/api/blogs')
+      .set('Authorization', token)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -84,6 +115,7 @@ describe('addition of new blog', () => {
 
     await api
       .post('/api/blogs')
+      .set('Authorization', token)
       .send(newBlog)
       .expect(400)
 
@@ -99,6 +131,7 @@ describe('addition of new blog', () => {
 
     await api
       .post('/api/blogs')
+      .set('Authorization', token)
       .send(newBlog)
       .expect(400)
 
@@ -109,16 +142,29 @@ describe('addition of new blog', () => {
 
 describe('deleting a blog', () => {
   test('blog can be deleted', async () => {
-    const blogsAtStart = await helper.blogsInDb()
-    const blogToDelete = blogsAtStart[0]
+    const newBlog = {
+      title: 'For testing',
+      author: 'Tester',
+      url: 'test.com',
+      likes: 5,
+      user: userId
+    }
+
+    const result = await api
+      .post('/api/blogs')
+      .set('Authorization', token)
+      .send(newBlog)
+
+    const blogToDelete = result.body
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
+      .set('Authorization', token)
       .expect(204)
 
     const blogsAtEnd = await helper.blogsInDb()
     const ids = blogsAtEnd.map(b => b.id)
-    expect(blogsAtEnd).toHaveLength(helper.Initialblogs.length - 1)
+    expect(blogsAtEnd).toHaveLength(helper.Initialblogs.length)
     expect(ids).not.toContain(blogToDelete.id)
   })
 })
@@ -149,15 +195,6 @@ describe('modifying a blog', () => {
 })
 
 describe('when there is initially one user at db', () => {
-  beforeEach(async () => {
-    await User.deleteMany({})
-
-    const passwordHash = await bcrypt.hash('testpw', 10)
-    const user = new User({ username: 'testuser', passwordHash })
-
-    await user.save()
-  })
-
   test('creation succeeds with a fresh username', async () => {
     const usersAtStart = await helper.usersInDb()
 
