@@ -78,10 +78,10 @@ const App = () => {
     }
   }
 
-  const updateLikes = async (blog) => {
-
+  const updateLikes = async (event, blog) => {
+    event.preventDefault()
     const updatedBlog = {
-      user: user.id,
+      user: blog.user.id,
       likes: blog.likes + 1,
       author: blog.author,
       title: blog.title,
@@ -101,6 +101,23 @@ const App = () => {
     blogs.sort(function (a, b) {
       return b.likes - a.likes
     })
+  }
+
+  sortByLikes(blogs)
+
+  const deleteBlog = async (event, blog) => {
+    event.preventDefault()
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+      try {
+        await blogService.del(blog.id)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+        notify(`Blog ${blog.title} by ${blog.author} removed`)
+      } catch (exception) {
+        notify('Deleting a blog failed', 'alert')
+      }
+    }
+
+    
   }
 
   const blogFormRef = useRef()
@@ -134,6 +151,8 @@ const App = () => {
               info={blogInfo} 
               setInfo={setBlogInfo}
               update={updateLikes}
+              del={deleteBlog}
+              userId={user.id}
             />
           )}
         </div>
