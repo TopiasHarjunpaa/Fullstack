@@ -29,4 +29,5 @@ const del = async id => {
   return response.data
 }
 
-export default { getAll, create, setToken, update, del }
+const exportedObject = { getAll, create, setToken, update, del }
+export default exportedObject

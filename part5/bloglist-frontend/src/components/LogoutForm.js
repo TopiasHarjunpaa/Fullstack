@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const LogoutForm = ({ handleSubmit, username }) => {
   return (
     <div>
@@ -10,6 +12,11 @@ const LogoutForm = ({ handleSubmit, username }) => {
       <br/>
     </div>
   )
+}
+
+LogoutForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired
 }
 
 export default LogoutForm

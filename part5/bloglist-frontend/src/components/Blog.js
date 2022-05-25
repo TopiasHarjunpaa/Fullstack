@@ -1,8 +1,6 @@
 const Blog = ({ blog, info, setInfo, update, del, userId }) => {
   return (
     <div className='blogStyle'>
-      <p>{blog.user.id} eka</p>
-      <p>{userId} toka</p>
       {info === blog.id ?
         <div>
           <h3>
