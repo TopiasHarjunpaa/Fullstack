@@ -21,8 +21,9 @@ const Blog = ({ blog, info, setInfo, update, del, userId }) => {
           }
         </div> : 
         <div>
-          {blog.title} {blog.author}&nbsp;
-          <button onClick={() => setInfo(blog.id)}>view</button>
+          <nobr>{blog.title}&nbsp;</nobr>
+          <nobr>{blog.author}&nbsp;</nobr>
+          <button id={blog.id} onClick={() => setInfo(blog.id)}>view</button>
         </div>  
       }
     </div>
