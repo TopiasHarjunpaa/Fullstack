@@ -11,10 +11,11 @@ const Blog = ({ blog, info, setInfo, update, del, userId }) => {
           <p>url: {blog.url}</p>
           <p>
             likes: {blog.likes}
-            <button onClick={(event) => update(event, blog)}>like</button>
+            <button id="like-button" onClick={(event) => update(event, blog)}>like</button>
           </p>
           {blog.user.id === userId &&
             <button 
+              id="delete-button"
               className='removeButton'
               onClick={(event) => del(event, blog)}>delete
             </button>

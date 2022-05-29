@@ -8,11 +8,11 @@ test('creating a new blog calls callback function with right attributes', async 
   const user = userEvent.setup()
   const mockHandler = jest.fn()
 
-  render(<BlogForm createBlog={mockHandler} />)
+  const { container }  = render(<BlogForm createBlog={mockHandler} />)
 
-  const titleInput = screen.getByPlaceholderText('title')
-  const authorInput = screen.getByPlaceholderText('author')
-  const urlInput = screen.getByPlaceholderText('url')
+  const titleInput = container.querySelector('#title')
+  const authorInput = container.querySelector('#author')
+  const urlInput = container.querySelector('#url')
   const createButton = screen.getByText('create')
 
   await user.type(titleInput, 'test-title')
