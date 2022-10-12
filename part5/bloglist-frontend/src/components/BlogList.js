@@ -7,6 +7,7 @@ const BlogList = ({ userId }) => {
 
 	return (
 		<div>
+			<h3>List of blogs</h3>
 			{sortedBlogs.map((blog) => (
 				<Blog key={blog.id} blog={blog} userId={userId} />
 			))}
