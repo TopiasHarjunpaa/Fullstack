@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { createNewBlog } from "../reducers/blogReducer";
 import { useField } from "../hooks";
+import { Form, Button } from "react-bootstrap";
 
 const BlogForm = () => {
 	const { reset: resetTitle, ...title } = useField("text");
@@ -21,26 +22,29 @@ const BlogForm = () => {
 		resetUrl();
 	};
 
+	const padding = {
+		paddingRight: 10,
+	};
+
 	return (
 		<div>
 			<h3>Create new blog</h3>
-			<form onSubmit={createBlog}>
-				<div>
-					title:
-					<input {...title} id="title" />
-				</div>
-				<div>
-					author:
-					<input {...author} id="author" />
-				</div>
-				<div>
-					url:
-					<input {...url} id="url" />
-				</div>
-				<button type="submit" id="create-blog-button">
-					create
-				</button>
-			</form>
+			<Form onSubmit={createBlog}>
+				<Form.Group>
+					<Form.Label style={padding}>
+						<Form.Control {...title} id="title" placeholder="title" />
+					</Form.Label>
+					<Form.Label style={padding}>
+						<Form.Control {...author} id="author" placeholder="author" />
+					</Form.Label>
+					<Form.Label style={padding}>
+						<Form.Control {...url} id="url" placeholder="url" />
+					</Form.Label>
+					<Button variant="primary" type="submit" id="create-blog-button">
+						create
+					</Button>
+				</Form.Group>
+			</Form>
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = null;
+const initialState = { content: null, success: true };
 let timeoutId;
 
 const notificationSlice = createSlice({

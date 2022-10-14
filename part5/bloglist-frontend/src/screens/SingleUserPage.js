@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
+import BlogList from "../components/BlogList";
 
 const SingleUserPage = () => {
 	const id = useParams().id;
@@ -12,13 +13,8 @@ const SingleUserPage = () => {
 
 	return (
 		<div>
-			<h2>{user.name}</h2>
-			<h3>added blogs</h3>
-			{user.blogs.map((blog) => (
-				<li key={blog.id}>
-					<Link to={`../../blogs/${blog.id}`}>{blog.title}</Link>
-				</li>
-			))}
+			<h3>{`${user.name}'s added blogs`}</h3>
+			<BlogList blogs={user.blogs} path={"../../"} />
 		</div>
 	);
 };

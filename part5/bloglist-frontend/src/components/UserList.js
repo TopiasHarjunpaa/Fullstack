@@ -1,18 +1,32 @@
 import { useSelector } from "react-redux";
+import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const UserList = () => {
 	const users = useSelector((state) => state.users);
+
 	return (
 		<div>
-			{users.map((user) => (
-				<li key={user.id}>
-					<Link to={user.id}>{user.name}</Link>
-					<p style={{ display: "inline", paddingLeft: 10 }}>
-						{user.blogs.length}
-					</p>
-				</li>
-			))}
+			<Table striped>
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Username</th>
+						<th scope="col">Blogs</th>
+					</tr>
+				</thead>
+				<tbody>
+					{users.map((user, index) => (
+						<tr key={user.id}>
+							<th scope="row">{index + 1}</th>
+							<td>
+								<Link to={user.id}>{user.name}</Link>
+							</td>
+							<td>{user.blogs.length}</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
 		</div>
 	);
 };

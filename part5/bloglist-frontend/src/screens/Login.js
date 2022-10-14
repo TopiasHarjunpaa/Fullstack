@@ -1,6 +1,6 @@
 import LoginForm from "../components/LoginForm";
 
-const Home = ({ user }) => {
+const Home = () => {
 	return (
 		<div>
 			<h3>Login page</h3>

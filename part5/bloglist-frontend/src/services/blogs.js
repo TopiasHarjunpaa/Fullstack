@@ -18,8 +18,13 @@ const create = async (newObject) => {
 	return response.data;
 };
 
-const update = async (id, newObject) => {
+const updateLikes = async (id, newObject) => {
 	const response = await axios.put(`${baseUrl}/${id}`, newObject);
+	return response.data;
+};
+
+const updateComments = async (id, newObject) => {
+	const response = await axios.put(`${baseUrl}/${id}/comments`, newObject);
 	return response.data;
 };
 
@@ -29,5 +34,12 @@ const del = async (id) => {
 	return response.data;
 };
 
-const exportedObject = { getAll, create, setToken, update, del };
+const exportedObject = {
+	getAll,
+	create,
+	setToken,
+	updateLikes,
+	updateComments,
+	del,
+};
 export default exportedObject;

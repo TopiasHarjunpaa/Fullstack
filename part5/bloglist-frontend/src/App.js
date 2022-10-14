@@ -25,24 +25,26 @@ const App = () => {
 	}, [dispatch]);
 
 	return (
-		<Router>
-			<div>
-				{user ? <NavigateTab username={user.name} /> : <div />}
-				<Notification />
-				<h2>Blog App</h2>
-			</div>
+		<div className="container">
+			<Router>
+				<div>
+					<h2>Blog App</h2>
+					{user ? <NavigateTab /> : <div />}
+					<Notification />
+				</div>
 
-			{user ? (
-				<Routes>
-					<Route path="/" element={<Home user={user} />} />
-					<Route path="/users" element={<UsersPage />} />
-					<Route path="/users/:id" element={<SingleUserPage />} />
-					<Route path="/blogs/:id" element={<BlogPage />} />
-				</Routes>
-			) : (
-				<Login />
-			)}
-		</Router>
+				{user ? (
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/users" element={<UsersPage />} />
+						<Route path="/users/:id" element={<SingleUserPage />} />
+						<Route path="/blogs/:id" element={<BlogPage user={user} />} />
+					</Routes>
+				) : (
+					<Login />
+				)}
+			</Router>
+		</div>
 	);
 };
 

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import blogService from "../services/blogs";
+import { setCreateNotification } from "./notificationReducer";
 
 const blogSlice = createSlice({
 	name: "blogs",
@@ -25,13 +26,23 @@ export const initializeBlogs = () => {
 
 export const createNewBlog = (blog) => {
 	return async (dispatch) => {
-		// try
-		// blogFormRef.current.toggleVisibility();
-		const newBlog = await blogService.create(blog);
-		dispatch(appendBlog(newBlog));
-		// dispatch(setCreateNotification(`a new blog ${newBlog.title} created by ${newBlog.author}`));
-		// catch
-		// dispatch(setCreateNotification("Creation of blog failed"));
+		try {
+			const newBlog = await blogService.create(blog);
+			dispatch(appendBlog(newBlog));
+			dispatch(
+				setCreateNotification({
+					content: `a new blog ${newBlog.title} created by ${newBlog.author}`,
+					success: true,
+				})
+			);
+		} catch {
+			dispatch(
+				setCreateNotification({
+					content: "Creation of blog failed",
+					success: false,
+				})
+			);
+		}
 	};
 };
 
@@ -41,26 +52,76 @@ export const updateBlogLikes = (blog) => {
 			...blog,
 			likes: blog.likes + 1,
 		};
-		//try
-		await blogService.update(blog.id, updatedBlog);
-		const blogs = await blogService.getAll();
-		dispatch(setBlogs(blogs));
-		//dispatch(setCreateNotification(`updated likes for ${updatedBlog.title}`));
-		//catch
-		//dispatch(setCreateNotification("Updating likes failed"));
+		try {
+			await blogService.updateLikes(blog.id, updatedBlog);
+			const blogs = await blogService.getAll();
+			dispatch(setBlogs(blogs));
+			dispatch(
+				setCreateNotification({
+					content: `updated likes for ${updatedBlog.title}`,
+					success: true,
+				})
+			);
+		} catch {
+			dispatch(
+				setCreateNotification({
+					content: "Updating likes failed",
+					success: false,
+				})
+			);
+		}
+	};
+};
+
+export const createNewComment = (blog, comment) => {
+	return async (dispatch) => {
+		const updatedBlog = {
+			...blog,
+			comments: blog.comments.concat(comment),
+		};
+		try {
+			await blogService.updateComments(blog.id, updatedBlog);
+			const blogs = await blogService.getAll();
+			dispatch(setBlogs(blogs));
+			dispatch(
+				setCreateNotification({
+					content: "Creation of a new comment succeeded",
+					success: true,
+				})
+			);
+		} catch {
+			dispatch(
+				setCreateNotification({
+					content: "Creation of a new comment failed",
+					success: false,
+				})
+			);
+		}
 	};
 };
 
 export const deleteBlog = (blog) => {
 	return async (dispatch) => {
-		//if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
-		//try
-		await blogService.del(blog.id);
-		const blogs = await blogService.getAll();
-		dispatch(setBlogs(blogs));
-		//dispatch(setCreateNotification(`Blog ${blog.title} by ${blog.author} removed`));
-		//catch
-		//dispatch(setCreateNotification("Deleting a blog failed"));
+		if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+			try {
+				await blogService.del(blog.id);
+				const blogs = await blogService.getAll();
+				dispatch(setBlogs(blogs));
+				dispatch(
+					setCreateNotification({
+						content: `Blog ${blog.title} by ${blog.author} removed`,
+						success: true,
+					})
+				);
+			} catch {
+				dispatch(
+					setCreateNotification({
+						content: "Deleting a blog failed",
+						success: false,
+					})
+				);
+			}
+		}
 	};
 };
 
