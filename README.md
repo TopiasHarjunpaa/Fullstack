@@ -1,6 +1,6 @@
-# Fullstack course 2022 parts 1-7
+# Fullstack course 2022 parts 0-7
 
-### Hours
+### Completed total: 149/149
 
 #### Part 0
 
@@ -84,4 +84,28 @@
 |   9-21    |   13/13   |  9,5 h   |
 | **Total** | **21/21** | **13 h** |
 
-#### Completed total: 149
+# Fullstack course 2022 part 9
+
+| Exercises | Progress |   Hours   |
+| :-------: | :------: | :-------: |
+|    1-3    |   3/3    |   0,5 h   |
+|    4-5    |   2/2    |    2 h    |
+|    6-7    |   0/2    |    0 h    |
+|    8-9    |   0/2    |    0 h    |
+|   10-11   |   0/2    |    0 h    |
+|   12-13   |   0/2    |    0 h    |
+|   14-15   |   0/2    |    0 h    |
+|   16-18   |   0/3    |    0 h    |
+|   19-22   |   0/4    |    0 h    |
+|   23-27   |   0/5    |    0 h    |
+| **Total** | **5/27** | **2,5 h** |
+
+# Fullstack course 2022 part 10
+
+| Exercises | Progress  |  Hours   |
+| :-------: | :-------: | :------: |
+|    1-2    |    2/2    |   2 h    |
+|   3-10    |    8/8    |   7 h    |
+|   11-16   |    6/6    |   5 h    |
+|   17-27   |   2/11    |   2 h    |
+| **Total** | **18/27** | **16 h** |
