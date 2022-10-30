@@ -7,7 +7,8 @@ import { apiBaseUrl } from "./constants";
 import { useStateValue } from "./state";
 import { Patient } from "./types";
 
-import PatientListPage from "./PatientListPage";
+import PatientListPage from "./Pages/patient-list-page";
+import PatientPage from "./Pages/patient-page";
 import { Typography } from "@material-ui/core";
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
           <Divider hidden />
           <Routes>
             <Route path="/" element={<PatientListPage />} />
+            <Route path="/patients/:id" element={<PatientPage />} />
           </Routes>
         </Container>
       </Router>

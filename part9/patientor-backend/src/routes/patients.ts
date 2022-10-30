@@ -8,6 +8,12 @@ router.get("/", (_req, res) => {
   res.send(patientService.getPatients());
 });
 
+router.get("/:id", (req, res) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { id } = req.params;
+  res.send(patientService.getPatient(id));
+});
+
 router.post("/", (req, res) => {
   try {
     const newPatientEntry = toNewPatientEntry(req.body);
