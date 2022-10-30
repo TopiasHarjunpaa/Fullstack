@@ -1,7 +1,4 @@
-interface CoursePart {
-  name: string;
-  exerciseCount: number;
-}
+import { CoursePart } from "../types";
 
 const Total = ({ courseParts }: { courseParts: CoursePart[] }): JSX.Element => {
   return (

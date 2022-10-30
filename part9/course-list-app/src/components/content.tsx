@@ -1,7 +1,5 @@
-interface CoursePart {
-  name: string;
-  exerciseCount: number;
-}
+import { CoursePart } from "../types";
+import Part from "./part";
 
 const Content = ({
   courseParts,
@@ -10,15 +8,11 @@ const Content = ({
 }): JSX.Element => {
   return (
     <div>
-      <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
-      </p>
+      {courseParts.map((part, index) => (
+        <tr key={index}>
+          <Part coursePart={part} />
+        </tr>
+      ))}
     </div>
   );
 };
