@@ -1,10 +1,11 @@
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
+import { setPatient, useStateValue } from "../state";
 import { useParams } from "react-router-dom";
 import { Patient } from "../types";
 import { useEffect } from "react";
 import { isString } from "formik";
+import EntryList from "../components/entry-list";
 
 const PatientPage = () => {
   const [{ patient }, dispatch] = useStateValue();
@@ -20,7 +21,7 @@ const PatientPage = () => {
           const { data: fetchedPatient } = await axios.get<Patient>(
             `${apiBaseUrl}/patients/${id}`
           );
-          dispatch({ type: "SET_PATIENT", payload: fetchedPatient });
+          dispatch(setPatient(fetchedPatient));
         } catch (e: unknown) {
           if (axios.isAxiosError(e)) {
             console.error(e?.response?.data || "Unrecognized axios error");
@@ -43,6 +44,7 @@ const PatientPage = () => {
         occupation: {patient?.occupation}
         <br />
       </i>
+      {patient ? <EntryList entries={patient.entries} /> : <div />}
     </div>
   );
 };
