@@ -9,13 +9,13 @@ router.get("/", (_req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id } = req.params;
   res.send(patientService.getPatient(id));
 });
 
 router.post("/", (req, res) => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument
     const newPatientEntry = toNewPatientEntry(req.body);
     const addedEntry = patientService.addPatient(newPatientEntry);
     res.json(addedEntry);

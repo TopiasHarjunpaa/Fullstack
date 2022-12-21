@@ -11,26 +11,6 @@ export enum HealthCheckRating {
   "CriticalRisk" = 3,
 }
 
-export interface DiagnoseEntry {
-  code: string;
-  name: string;
-  latin?: string;
-}
-
-export interface PatientEntry {
-  id: string;
-  name: string;
-  dateOfBirth: string;
-  ssn: string;
-  gender: Gender;
-  occupation: string;
-  entries?: Entry[];
-}
-
-export type NonSensitivePatientEntry = Omit<PatientEntry, "ssn" | "entries">;
-
-export type NewPatientEntry = Omit<PatientEntry, "id" | "entries">;
-
 interface Sickleave {
   startDate: string;
   endDate: string;
@@ -69,14 +49,21 @@ export type Entry =
   | OccupationalHealthcareEntry
   | HealthCheckEntry;
 
+export interface DiagnoseEntry {
+  code: string;
+  name: string;
+  latin?: string;
+}
+
 export interface Patient {
   id: string;
   name: string;
-  ssn: string;
-  occupation: string;
-  gender: Gender;
   dateOfBirth: string;
-  entries: Entry[];
+  ssn: string;
+  gender: Gender;
+  occupation: string;
+  entries?: Entry[];
 }
 
+export type NewPatient = Omit<Patient, "id" | "entries">;
 export type PublicPatient = Omit<Patient, "ssn" | "entries">;
