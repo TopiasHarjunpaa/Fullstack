@@ -26,7 +26,7 @@ interface BaseEntry {
   description: string;
   date: string;
   specialist: string;
-  diagnosisCodes?: Array<DiagnoseEntry["code"]>;
+  diagnosisCodes?: string[];
 }
 
 interface HealthCheckEntry extends BaseEntry {
@@ -65,5 +65,9 @@ export interface Patient {
   entries?: Entry[];
 }
 
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+export type EntryWithoutId = UnionOmit<Entry, "id">;
 export type NewPatient = Omit<Patient, "id" | "entries">;
 export type PublicPatient = Omit<Patient, "ssn" | "entries">;

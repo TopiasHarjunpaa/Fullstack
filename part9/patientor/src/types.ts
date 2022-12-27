@@ -60,7 +60,27 @@ interface HospitalEntry extends BaseEntry {
   type: "Hospital";
   discharge: Discharge;
 }
+
+interface HospitalFormEntry extends BaseEntry {
+  type: "Hospital";
+  dischargeDate: string;
+  dischargeCriteria: string;
+}
+
 export type Entry =
   | HospitalEntry
   | OccupationalHealthcareEntry
   | HealthCheckEntry;
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+export type EntryWithoutId = UnionOmit<Entry, "id">;
+export type HealthCheckFormValues = Omit<HealthCheckEntry, "id">;
+export type HospitalFormValues = Omit<HospitalFormEntry, "id">;
+export type OccupationalFormValues = Omit<OccupationalHealthcareEntry, "id">;
+
+export type EntryFormValues =
+  | HealthCheckFormValues
+  | HospitalFormValues
+  | OccupationalFormValues;

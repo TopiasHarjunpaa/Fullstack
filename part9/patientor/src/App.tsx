@@ -7,8 +7,8 @@ import { apiBaseUrl } from "./constants";
 import { setPatientList, setDiagnoseList, useStateValue } from "./state";
 import { Diagnosis, Patient } from "./types";
 
-import PatientListPage from "./Pages/patient-list-page";
-import PatientPage from "./Pages/patient-page";
+import PatientListPage from "./pages/patient-list-page";
+import PatientPage from "./pages/patient-page";
 import { Typography } from "@material-ui/core";
 
 const App = () => {

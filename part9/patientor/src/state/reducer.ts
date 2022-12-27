@@ -68,6 +68,13 @@ export const setPatientList = (patientList: Patient[]): Action => {
   };
 };
 
+export const addPatient = (patient: Patient): Action => {
+  return {
+    type: "ADD_PATIENT",
+    payload: patient,
+  };
+};
+
 export const setPatient = (patient: Patient): Action => {
   return {
     type: "SET_PATIENT",
