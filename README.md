@@ -86,14 +86,14 @@
 
 # Fullstack course 2022 part 8 GraphQL
 
-| Exercises | Progress |  Hours  |
-| :-------: | :------: | :-----: |
-|    1-7    |   0/7    |   0 h   |
-|   8-12    |   0/5    |   0 h   |
-|   13-16   |   0/4    |   0 h   |
-|   17-22   |   0/6    |   0 h   |
-|   23-26   |   0/4    |   0 h   |
-| **Total** | **0/26** | **0 h** |
+| Exercises | Progress |   Hours   |
+| :-------: | :------: | :-------: |
+|    1-7    |   1/7    |   0,5 h   |
+|   8-12    |   0/5    |    0 h    |
+|   13-16   |   0/4    |    0 h    |
+|   17-22   |   0/6    |    0 h    |
+|   23-26   |   0/4    |    0 h    |
+| **Total** | **1/26** | **0,5 h** |
 
 # Fullstack course 2022 part 9 TypeScript
 
