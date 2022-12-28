@@ -84,7 +84,18 @@
 |   9-21    |   13/13   |  9,5 h   |
 | **Total** | **21/21** | **13 h** |
 
-# Fullstack course 2022 part 9
+# Fullstack course 2022 part 8 GraphQL
+
+| Exercises | Progress |  Hours  |
+| :-------: | :------: | :-----: |
+|    1-7    |   0/7    |   0 h   |
+|   8-12    |   0/5    |   0 h   |
+|   13-16   |   0/4    |   0 h   |
+|   17-22   |   0/6    |   0 h   |
+|   23-26   |   0/4    |   0 h   |
+| **Total** | **0/26** | **0 h** |
+
+# Fullstack course 2022 part 9 TypeScript
 
 | Exercises | Progress  |  Hours   |
 | :-------: | :-------: | :------: |
@@ -100,7 +111,7 @@
 |   23-27   |    5/5    |   12 h   |
 | **Total** | **27/27** | **26 h** |
 
-# Fullstack course 2022 part 10
+# Fullstack course 2022 part 10 React Native
 
 | Exercises | Progress  |  Hours   |
 | :-------: | :-------: | :------: |
