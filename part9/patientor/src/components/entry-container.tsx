@@ -1,5 +1,8 @@
-import { Entry } from "../types";
+import { Entry, HealthCheckRating } from "../types";
 import DiagnoseList from "./diagnoses";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import HealingIcon from "@mui/icons-material/Healing";
+import VaccinesIcon from "@mui/icons-material/Vaccines";
 
 const assertNever = (value: never): never => {
   throw new Error(
@@ -12,31 +15,48 @@ const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
     case "Hospital":
       return (
         <ul style={{ listStyle: "none" }}>
-          <li>{entry.date} Hosp-logo</li>
-          <li>{entry.description}</li>
+          <h3>
+            <LocalHospitalIcon /> Hospital
+          </h3>
+          <li>Date: {entry.date}</li>
+          <li>Description: {entry.description}</li>
           <li>
-            {entry.discharge.date} {entry.discharge.criteria}
+            Discharge date: {entry.discharge.date} | Discharge criteria:{" "}
+            {entry.discharge.criteria}
           </li>
-          <li>{entry.specialist}</li>
+          <li>Specialist: {entry.specialist}</li>
         </ul>
       );
     case "OccupationalHealthcare":
       return (
         <ul style={{ listStyle: "none" }}>
+          <h3>
+            <VaccinesIcon /> Occupational Healthcare
+          </h3>
           <li>
-            {entry.date} Occu-logo {entry.employerName}
+            Date: {entry.date} | Employer: {entry.employerName}
           </li>
-          <li>{entry.description}</li>
-          <li>{entry.specialist}</li>
+          <li>Description: {entry.description}</li>
+          <li>
+            {entry.sickLeave
+              ? `Sickleave start date: ${entry.sickLeave?.startDate} | Sickleave end date: ${entry.sickLeave?.endDate}`
+              : `Ǹo sickleave`}
+          </li>
+          <li>Specialist: {entry.specialist}</li>
         </ul>
       );
     case "HealthCheck":
       return (
         <ul style={{ listStyle: "none" }}>
-          <li>{entry.date} HealthCheck-logo</li>
-          <li>{entry.description}</li>
-          <li>{entry.healthCheckRating}</li>
-          <li>{entry.specialist}</li>
+          <h3>
+            <HealingIcon /> Healthcheck
+          </h3>
+          <li>Date: {entry.date}</li>
+          <li>Description: {entry.description}</li>
+          <li>
+            Healthcheck rating: {HealthCheckRating[entry.healthCheckRating]}
+          </li>
+          <li>Specialist: {entry.specialist}</li>
         </ul>
       );
     default:

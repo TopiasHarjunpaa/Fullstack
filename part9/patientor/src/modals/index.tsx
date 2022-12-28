@@ -5,6 +5,7 @@ import AddPatientForm, { PatientFormValues } from "./add-patient-form";
 import AddHealthCheckEntryForm from "./add-healthcheck-entry-form";
 import { EntryFormValues } from "../types";
 import AddHospitalEntryForm from "./add-hospital-entry-form";
+import AddHealthcareEntryForm from "./add-healthcare-entry-form";
 
 interface PatientProps {
   modalOpen: boolean;
@@ -57,7 +58,16 @@ export const AddEntryModal = ({
         </Dialog>
       );
     case "OccupationalHealthcare":
-      return <div />;
+      return (
+        <Dialog fullWidth={true} open={modalOpen} onClose={() => onClose()}>
+          <DialogTitle>Add a new occupational healthcare entry</DialogTitle>
+          <Divider />
+          <DialogContent>
+            {error && <Alert severity="error">{`Error: ${error}`}</Alert>}
+            <AddHealthcareEntryForm onSubmit={onSubmit} onCancel={onClose} />
+          </DialogContent>
+        </Dialog>
+      );
     case "HealthCheck":
       return (
         <Dialog fullWidth={true} open={modalOpen} onClose={() => onClose()}>

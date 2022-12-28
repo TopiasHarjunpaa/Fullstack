@@ -11,10 +11,10 @@ export enum HealthCheckRating {
   "CriticalRisk" = 3,
 }
 
-interface Sickleave {
+export type Sickleave = {
   startDate: string;
   endDate: string;
-}
+};
 
 interface Discharge {
   date: string;

@@ -51,6 +51,7 @@ const PatientPage = () => {
   }, []);
 
   const submitNewEntry = async (values: EntryFormValues) => {
+    console.log(values);
     try {
       if (id !== undefined) {
         const { data: updatedPatient } = await axios.post<Patient>(
@@ -59,6 +60,8 @@ const PatientPage = () => {
         );
         dispatch(setPatient(updatedPatient));
         closeModal();
+      } else {
+        setError("User ID not found");
       }
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {

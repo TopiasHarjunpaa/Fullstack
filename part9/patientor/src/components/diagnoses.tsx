@@ -3,7 +3,7 @@ import { useStateValue } from "../state";
 const DiagnoseList = ({ diagnosisCodes }: { diagnosisCodes: string[] }) => {
   const [{ diagnosis }] = useStateValue();
   return (
-    <div>
+    <div className="diagnoseList">
       {diagnosisCodes.map((code, index) => (
         <tr key={index}>
           <td>

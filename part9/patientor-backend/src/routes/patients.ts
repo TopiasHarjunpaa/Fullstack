@@ -4,6 +4,7 @@ import {
   toNewPatientEntry,
   toNewHealthCheckEntry,
   toNewHospitalEntry,
+  toNewHealthCareEntry,
   isString,
 } from "../utils";
 
@@ -63,10 +64,18 @@ router.post("/:id/entries", (req, res) => {
         res.json(addedHospitalEntry);
         break;
       case "OccupationalHealthcare":
-        // To be continued
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const newHealthcareEntry = toNewHealthCareEntry(req.body);
+        const addedHealthcareEntry = patientService.updatePatientEntries(
+          id,
+          newHealthcareEntry
+        );
+        console.log("New Hospital entry added:");
+        console.log(addedHealthcareEntry);
+        res.json(addedHealthcareEntry);
         break;
       default:
-        throw new Error("Invalid entry type");
+        res.status(400).send("Invalid entry name");
     }
   } catch (error: unknown) {
     let errorMessage = "Something went wrong.";

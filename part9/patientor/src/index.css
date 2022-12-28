@@ -3,4 +3,10 @@
   border-radius: 10px;
   border-width: 1px;
   margin-bottom: 10px;
+  padding-right: 30px;
+}
+
+.diagnoseList {
+  margin-bottom: 20px;
+  margin-left: 40px;
 }
