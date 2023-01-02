@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { ALL_AUTHORS } from "../queries";
 import BirthyearForm from "./BirthyearForm";
 
-const Authors = ({ show, setError }) => {
+const Authors = ({ show, setError, token }) => {
   const result = useQuery(ALL_AUTHORS);
 
   if (!show) {
@@ -28,7 +28,13 @@ const Authors = ({ show, setError }) => {
           ))}
         </tbody>
       </table>
-      <BirthyearForm setError={setError} authors={result.data?.allAuthors} />
+      {token ? (
+        <BirthyearForm setError={setError} authors={result.data?.allAuthors} />
+      ) : (
+        <div>
+          <h3>Login to set authors birthyear</h3>
+        </div>
+      )}
     </div>
   );
 };

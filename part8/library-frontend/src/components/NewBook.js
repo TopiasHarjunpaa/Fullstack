@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { ALL_BOOKS, CREATE_BOOK } from "../queries";
+import { ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK } from "../queries";
 
-const NewBook = ({ show, setError }) => {
+const NewBook = ({ show, setError, token }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [published, setPublished] = useState("");
@@ -10,9 +10,13 @@ const NewBook = ({ show, setError }) => {
   const [genres, setGenres] = useState([]);
 
   const [createBook] = useMutation(CREATE_BOOK, {
-    refetchQueries: [{ query: ALL_BOOKS }],
+    refetchQueries: [
+      { query: ALL_BOOKS },
+      { query: ALL_AUTHORS },
+      "AllBooksByGenre",
+    ],
     onError: (error) => {
-      setError(error.graphQLErrors[0].message);
+      setError(error.graphQLErrors[0]);
     },
   });
 
@@ -36,6 +40,14 @@ const NewBook = ({ show, setError }) => {
     setGenres(genres.concat(genre));
     setGenre("");
   };
+
+  if (!token) {
+    return (
+      <div>
+        <h3>Login to add new book</h3>
+      </div>
+    );
+  }
 
   return (
     <div>
