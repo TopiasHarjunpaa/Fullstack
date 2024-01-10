@@ -1,0 +1,4 @@
+docker start -i dazzling_bassi
+nano /usr/src/app/index.js
+console.log('Hello World')
+exit
