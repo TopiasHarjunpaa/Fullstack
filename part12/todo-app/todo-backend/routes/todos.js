@@ -45,13 +45,9 @@ singleRouter.get('/', async (req, res) => {
 
 /* PUT todo. */
 singleRouter.put('/', async (req, res) => {
-  const { text, done } = req.body
+  req.todo.done = true;
+  const updatedTodo = await req.todo.save()
 
-  const updatedTodo = await Todo.findByIdAndUpdate(
-    req.params.id,
-    { text, done },
-    { new: true, runValidators: true, context: 'query' }
-  )
   res.send(updatedTodo);
 });
 

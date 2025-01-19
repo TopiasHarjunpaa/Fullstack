@@ -1,0 +1,15 @@
+docker exec -it todo-backend- redis-1 bash
+redis-cli
+KEYS *
+1) "added_todos"
+GET added_todos
+"0"
+SET added_todos 9001
+GET added_todos
+"9004"
+DEL added_todos
+(integer) 1
+GET added_todos
+"1"
+exit
+exit
