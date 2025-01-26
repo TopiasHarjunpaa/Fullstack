@@ -1,4 +1,17 @@
 services:
+  server:
+    image: hello-backend-dev
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3000:3000
+    environment: 
+      - REDIS_URL=${DOCKER_REDIS_URL}
+      - MONGO_URL=${DOCKER_MONGO_URL}
+
   mongo:
     image: mongo
     ports:
