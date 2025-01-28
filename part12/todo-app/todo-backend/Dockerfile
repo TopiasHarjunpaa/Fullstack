@@ -6,8 +6,10 @@ COPY --chown=node:node . .
 
 RUN npm ci
 
-ENV DEBUG=playground:*
+ENV NODE_ENV=production
 
 USER node
 
-CMD npm start
+EXPOSE 3000
+
+CMD ["npm", "start"]
