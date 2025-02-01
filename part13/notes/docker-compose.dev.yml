@@ -1,0 +1,48 @@
+services:
+  app:
+    image: notes-frontend-dev
+    build:
+      context: ./notes-frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./notes-frontend:/usr/src/app
+    container_name: notes-frontend-dev
+
+  server:
+    image: notes-backend-dev
+    build:
+      context: ./notes-backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./notes-backend:/usr/src/app
+    environment: 
+      - DATABASE_URL=${DOCKER_DATABASE_URL}
+    container_name: notes-backend-dev
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pw
+      POSTGRES_DB: notedb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    container_name: notes-postgres
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: notes-reverse-proxy
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:
+    driver: local
