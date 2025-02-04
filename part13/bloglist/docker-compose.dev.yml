@@ -17,6 +17,7 @@ services:
       - ./bloglist-backend:/usr/src/app
     environment: 
       - DATABASE_URL=${DOCKER_DATABASE_URL}
+      - SECRET=${SECRET}
     container_name: bloglist-backend-dev
     depends_on:
       - postgres

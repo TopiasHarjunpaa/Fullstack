@@ -1,3 +1,30 @@
+.alert {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.info {
+  color: green;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .removeButton {
-	background-color: lightskyblue;
+  background-color: lightskyblue;
+}
+
+.blogStyle {
+  padding: 0.3em;
+  border: solid;
+  border-width: 0.1em;
+  margin-bottom: 0.2em;
 }

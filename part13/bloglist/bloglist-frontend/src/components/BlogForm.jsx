@@ -1,52 +1,73 @@
-import { useDispatch } from "react-redux";
-import { createNewBlog } from "../reducers/blogReducer";
-import { useField } from "../hooks";
-import { Form, Button } from "react-bootstrap";
+import { useState } from "react"
+import PropTypes from 'prop-types'
 
-const BlogForm = () => {
-	const { reset: resetTitle, ...title } = useField("text");
-	const { reset: resetAuthor, ...author } = useField("text");
-	const { reset: resetUrl, ...url } = useField("text");
-	const dispatch = useDispatch();
+const BlogForm = ({ createBlog }) => {
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
 
-	const createBlog = (event) => {
-		event.preventDefault();
-		const blog = {
-			title: title.value,
-			author: author.value,
-			url: url.value,
-		};
-		dispatch(createNewBlog(blog));
-		resetTitle();
-		resetAuthor();
-		resetUrl();
-	};
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value)
+  }
 
-	const padding = {
-		paddingRight: 10,
-	};
+  const handleAuthorChange = (event) => {
+    setAuthor(event.target.value)
+  }
 
-	return (
-		<div>
-			<h3>Create new blog</h3>
-			<Form onSubmit={createBlog}>
-				<Form.Group>
-					<Form.Label style={padding}>
-						<Form.Control {...title} id="title" placeholder="title" />
-					</Form.Label>
-					<Form.Label style={padding}>
-						<Form.Control {...author} id="author" placeholder="author" />
-					</Form.Label>
-					<Form.Label style={padding}>
-						<Form.Control {...url} id="url" placeholder="url" />
-					</Form.Label>
-					<Button variant="primary" type="submit" id="create-blog-button">
-						create
-					</Button>
-				</Form.Group>
-			</Form>
-		</div>
-	);
-};
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value)
+  }
 
-export default BlogForm;
+  const createNewBlog = (event) => {
+    event.preventDefault()
+    createBlog({
+      title: title,
+      author: author,
+      url: url
+    })
+
+    setTitle('')
+    setAuthor('')
+    setUrl('')    
+  }
+  
+  return (
+    <div>
+      <h2>Create new blog</h2>
+
+      <form onSubmit={createNewBlog}>
+        <div>
+          title:
+            <input
+              value={title} 
+              onChange={handleTitleChange}
+              id="title"
+            />  
+        </div>     
+        <div>
+          author:
+          <input
+              value={author} 
+              onChange={handleAuthorChange}
+              id="author"
+            />  
+        </div> 
+        <div>
+          url:
+          <input
+              value={url} 
+              onChange={handleUrlChange}
+              id="url"
+            />  
+        </div>  
+        <button type="submit" id="create-blog-button" >create</button>
+      </form>
+    </div>
+  )
+}
+
+BlogForm.propTypes = {
+  createBlog: PropTypes.func.isRequired
+}
+
+export default BlogForm

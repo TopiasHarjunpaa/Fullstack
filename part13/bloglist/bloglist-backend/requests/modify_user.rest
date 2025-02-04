@@ -1,0 +1,6 @@
+PUT http://localhost:8080/api/users/topias
+Content-Type: application/json
+
+{
+    "username": "topias", "name": "toto"
+}
