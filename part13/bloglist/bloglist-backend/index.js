@@ -1,6 +1,7 @@
 const express = require('express')
 require('express-async-errors')
 const app = express()
+const middleware = require('./util/middleware')
 
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
@@ -21,5 +22,8 @@ const start = async () => {
     console.log(`Server running on port ${PORT}`)
   })
 }
+
+app.use(middleware.requestLogger)
+app.use(middleware.errorHandler)
 
 start()
