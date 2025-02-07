@@ -2,16 +2,33 @@ const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const { User, Blog } = require('../models')
 const middleware = require('../util/middleware')
+const { Op } = require('sequelize')
 
 router.get('/', async (req, res) => {
-    const blogs = await Blog.findAll({
-      include: {
-          model: User,
-          attributes: ['username', 'name', 'id']
+  const where = {}
+  
+  if (req.query.search) {
+    where[Op.or] = {
+      title: {
+        [Op.substring]: req.query.search
+      },
+      author: {
+        [Op.substring]: req.query.search
       }
-    })
-    res.json(blogs)
+    }
+  }
+  
+  const blogs = await Blog.findAll({
+    order: [['likes', 'DESC']], 
+    include: {
+      model: User,
+      attributes: ['username', 'name', 'id']
+    },
+    where
   })
+  
+  res.json(blogs)
+})
   
 router.post('/', middleware.tokenExtractor, async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id)
