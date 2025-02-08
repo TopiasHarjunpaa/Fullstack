@@ -1,0 +1,10 @@
+POST http://localhost:8080/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Title",
+    "author": "Author",
+    "url": "www.url.com",
+    "likes": 0,
+    "year": 0
+}
