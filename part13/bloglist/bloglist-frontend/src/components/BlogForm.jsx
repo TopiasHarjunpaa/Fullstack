@@ -5,7 +5,7 @@ const BlogForm = ({ createBlog }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
-  const [year, setYear] = useState(null)
+  const [year, setYear] = useState('')
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value)
@@ -35,7 +35,7 @@ const BlogForm = ({ createBlog }) => {
     setTitle('')
     setAuthor('')
     setUrl('')
-    setYear(null)  
+    setYear('')
   }
   
   return (
