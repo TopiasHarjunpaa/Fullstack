@@ -1,6 +1,7 @@
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const { SECRET } = require('./config')
+const { User, UserSession } = require('../models')
 
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
@@ -10,7 +11,7 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-const tokenExtractor = (req, res, next) => {
+const tokenExtractor = async (req, res, next) => {
   const authorization = req.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     try {
@@ -20,6 +21,20 @@ const tokenExtractor = (req, res, next) => {
       console.log(error)
       return res.status(401).json({ error: 'token invalid' })
     }
+    const session = await UserSession.findOne({
+      where: { userId: req.decodedToken.id }
+    })
+    if (!session) {
+      return res.status(401).json({ error: 'No active session' })
+    }
+
+    const user = await User.findByPk(req.decodedToken.id)
+    console.log(user)
+
+    if (user.disabled) {
+      return res.status(401).json({ error: 'Account disabled' })
+    }
+
   } else {
     return res.status(401).json({ error: 'token missing' })
   }

@@ -61,7 +61,7 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', middleware.tokenExtractor, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id)
   if (blog) {
     await blog.destroy()
