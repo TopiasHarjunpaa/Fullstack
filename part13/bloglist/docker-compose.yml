@@ -1,0 +1,46 @@
+services:
+  app:
+    image: bloglist-frontend
+    build:
+      context: ./bloglist-frontend
+      dockerfile: Dockerfile
+    container_name: bloglist-frontend
+
+  server:
+    image: bloglist-backend
+    build:
+      context: ./bloglist-backend
+      dockerfile: Dockerfile
+    environment: 
+      - DATABASE_URL=${DOCKER_DATABASE_URL}
+      - SECRET=${SECRET}
+    container_name: bloglist-backend
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pw
+      POSTGRES_DB: blogdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    container_name: bloglist-postgres
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: bloglist-reverse-proxy
+    depends_on:
+      - app
+      - server
+
+volumes:
+  postgres_data:
+    driver: local
